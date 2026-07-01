@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="New High Energy Solar - Enterprise Stock Management Platform">
+  <meta name="theme-color" content="#0F172A">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <title>New High Energy Solar — Stock Management</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E☀️%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+<noscript>
+  <div style="position:fixed;top:0;left:0;width:100%;height:100%;background:#0F172A;color:#F8FAFC;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99999;font-family:sans-serif;padding:2rem;text-align:center;">
+    <h1 style="color:#FFC107;font-size:2rem;margin-bottom:1rem;">JavaScript Required</h1>
+    <p style="color:#94A3B8;font-size:1.1rem;max-width:400px;">New High Energy Solar requires JavaScript to function. Please enable JavaScript in your browser settings.</p>
+  </div>
+</noscript>
+
+<div id="offline-banner" style="display:none;position:fixed;top:0;left:0;width:100%;background:#EF4444;color:white;text-align:center;padding:8px;font-size:0.85rem;z-index:99998;font-family:sans-serif;">You are offline. Changes may not be saved.</div>
+
+<canvas id="particles-canvas"></canvas>
+
+<!-- ========== LOGIN ========== -->
+<section id="login-section">
+  <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1920&h=1080&fit=crop" alt="" class="login-bg" loading="lazy">
+  <div class="login-bg-overlay"></div>
+  <div class="login-grid"></div>
+  <div class="login-card">
+    <div class="login-logo-wrap">
+      <div class="login-logo-circle">
+        <i data-lucide="sun" style="width:40px;height:40px;"></i>
+      </div>
+    </div>
+    <div class="login-sun-animation">
+      <div class="login-sun-rays"></div>
+      <div class="login-sun"></div>
+    </div>
+    <h2>New High Energy Solar</h2>
+    <p class="login-sub">Enterprise Stock Management Platform</p>
+    <form id="login-form">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" class="input-control" placeholder="Enter your username" required autocomplete="username">
+      </div>
+      <div class="form-group" style="position:relative;">
+        <label for="password">Password</label>
+        <input type="password" id="password" class="input-control" placeholder="Enter your password" required autocomplete="current-password">
+        <button type="button" class="pw-toggle" onclick="togglePassword()" tabindex="-1" aria-label="Toggle password visibility">
+          <i data-lucide="eye" style="width:18px;height:18px;"></i>
+        </button>
+      </div>
+      <button type="submit" class="btn-primary" id="login-btn">
+        Sign In
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- ========== APP ========== -->
+<section id="app-section" style="display:none;">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo"><i data-lucide="sun" style="width:22px;height:22px;"></i></div>
+      <div class="sidebar-brand">New High Energy <span>Solar</span><small>Stock Management</small></div>
+    </div>
+    <nav>
+      <ul class="sidebar-nav">
+        <li class="nav-item active" data-target="dashboard-view">
+          <a href="#"><i data-lucide="layout-dashboard" style="width:18px;height:18px;"></i> Dashboard</a>
+        </li>
+        <li class="nav-item" data-target="products-view">
+          <a href="#"><i data-lucide="package" style="width:18px;height:18px;"></i> Products</a>
+        </li>
+        <li class="nav-item" data-target="transactions-view">
+          <a href="#"><i data-lucide="arrow-left-right" style="width:18px;height:18px;"></i> Stock Ledger</a>
+        </li>
+        <li class="nav-item" data-target="reports-view">
+          <a href="#"><i data-lucide="file-text" style="width:18px;height:18px;"></i> Reports</a>
+        </li>
+        <li class="nav-section-label">Administration</li>
+        <li class="nav-item" data-target="contacts-view">
+          <a href="#"><i data-lucide="users" style="width:18px;height:18px;"></i> Contacts</a>
+        </li>
+        <li class="nav-item" data-target="settings-view">
+          <a href="#"><i data-lucide="settings" style="width:18px;height:18px;"></i> Settings</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="logout-btn" id="logout-button">
+        <i data-lucide="log-out" style="width:16px;height:16px;"></i> Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <div class="main-wrapper">
+    <header class="top-header">
+      <div class="header-left">
+        <button class="hamburger" id="hamburger-menu" aria-label="Toggle menu">
+          <i data-lucide="menu" style="width:22px;height:22px;"></i>
+        </button>
+        <div class="header-greeting">
+          <span>Solar Operations</span>
+          <span class="header-time" id="header-date"></span>
+        </div>
+      </div>
+      <div class="header-right">
+        <button class="header-btn" id="theme-toggle" aria-label="Toggle theme">
+          <i data-lucide="moon" style="width:18px;height:18px;"></i>
+        </button>
+        <div class="user-profile">
+          <div class="avatar" id="profile-avatar">AD</div>
+          <div class="profile-info">
+            <span class="profile-name" id="profile-name">Admin</span>
+            <span class="profile-role" id="profile-role">Store Manager</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="content-body">
+
+      <!-- ===== DASHBOARD ===== -->
+      <div id="dashboard-view" class="view-section active">
+        <div class="page-title-block">
+          <h2>Dashboard</h2>
+          <p>Real-time inventory analytics, solar stock overview, and key performance metrics</p>
+        </div>
+
+        <div class="metrics-grid" id="metrics-grid">
+          <div class="metric-card products tilt-card">
+            <div class="metric-data">
+              <h3>Total Products</h3>
+              <div class="metric-val" id="metric-total-products">0</div>
+            </div>
+            <div class="metric-icon"><i data-lucide="package"></i></div>
+          </div>
+          <div class="metric-card available tilt-card">
+            <div class="metric-data">
+              <h3>Available Items</h3>
+              <div class="metric-val" id="metric-available-stock">0</div>
+            </div>
+            <div class="metric-icon"><i data-lucide="layers"></i></div>
+          </div>
+          <div class="metric-card low-stock tilt-card">
+            <div class="metric-data">
+              <h3>Low Stock Alerts</h3>
+              <div class="metric-val" id="metric-low-stock">0</div>
+            </div>
+            <div class="metric-icon"><i data-lucide="alert-triangle"></i></div>
+          </div>
+          <div class="metric-card out-stock tilt-card">
+            <div class="metric-data">
+              <h3>Out of Stock</h3>
+              <div class="metric-val" id="metric-out-stock">0</div>
+            </div>
+            <div class="metric-icon"><i data-lucide="x-circle"></i></div>
+          </div>
+          <div class="metric-card stock-in tilt-card">
+            <div class="metric-data">
+              <h3>Today's Inflow</h3>
+              <div class="metric-val" id="metric-today-in">0</div>
+            </div>
+            <div class="metric-icon"><i data-lucide="trending-up"></i></div>
+          </div>
+          <div class="metric-card stock-out tilt-card">
+            <div class="metric-data">
+              <h3>Today's Outflow</h3>
+              <div class="metric-val" id="metric-today-out">0</div>
+            </div>
+            <div class="metric-icon"><i data-lucide="trending-down"></i></div>
+          </div>
+        </div>
+
+        <div class="dashboard-extras">
+          <div class="extra-card" id="energy-forecast-card">
+            <div class="extra-card-header">
+              <i data-lucide="zap" style="width:20px;height:20px;color:var(--solar-yellow);"></i>
+              <h3>Panel Energy Forecast</h3>
+              <span class="badge-solar" id="energy-weather-badge">Clear</span>
+            </div>
+            <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.85rem;">→ by no. of panels</div>
+
+            <div id="panel-type-selector" class="pill-group"></div>
+
+            <div class="panel-count-row">
+              <label><i data-lucide="hash" style="width:14px;height:14px;vertical-align:middle;"></i> No. of Panels</label>
+              <input type="number" id="panel-count-input" class="input-control" value="1" min="1" max="9999" style="width:100px;">
+            </div>
+
+            <div class="energy-metrics-grid" id="energy-metrics-grid">
+              <div class="emetric">
+                <i data-lucide="zap" style="width:18px;height:18px;color:var(--solar-yellow);"></i>
+                <div class="emetric-value" id="energy-production">0</div>
+                <div class="emetric-label">kWh / day</div>
+              </div>
+              <div class="emetric">
+                <i data-lucide="cpu" style="width:18px;height:18px;color:var(--electric-blue);"></i>
+                <div class="emetric-value" id="energy-capacity">0</div>
+                <div class="emetric-label">Current output / day</div>
+              </div>
+              <div class="emetric">
+                <i data-lucide="leaf" style="width:18px;height:18px;color:var(--energy-green);"></i>
+                <div class="emetric-value" id="energy-co2">0</div>
+                <div class="emetric-label">CO₂ offset / day</div>
+              </div>
+              <div class="emetric">
+                <i data-lucide="percent" style="width:18px;height:18px;color:var(--electric-blue);"></i>
+                <div class="emetric-value" id="energy-efficiency">0%</div>
+                <div class="emetric-label">Efficiency</div>
+              </div>
+            </div>
+          </div>
+          <div class="extra-card">
+            <div class="extra-card-header">
+              <i data-lucide="cloud-sun" style="width:20px;height:20px;color:var(--electric-blue);"></i>
+              <h3>Site Weather</h3>
+              <span class="badge-solar" style="background:var(--electric-blue-subtle);color:var(--electric-blue);">Updated</span>
+            </div>
+            <div class="weather-info">
+              <div class="weather-icon"><i data-lucide="sun" style="width:28px;height:28px;"></i></div>
+              <div>
+                <div class="weather-temp" id="weather-temp">--°C</div>
+                <div class="weather-desc" id="weather-desc">--</div>
+                <div class="weather-location" id="weather-location">Installation Site</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="charts-grid">
+          <div class="chart-card">
+            <h3>Stock Activity Trend (Last 7 Days)</h3>
+            <div class="chart-container">
+              <canvas id="trendChart"></canvas>
+            </div>
+          </div>
+          <div class="chart-card">
+            <h3>Category Distribution</h3>
+            <div class="chart-container">
+              <canvas id="categoryChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ===== PRODUCTS ===== -->
+      <div id="products-view" class="view-section">
+        <div class="page-title-block">
+          <h2>Product Management</h2>
+          <p>Manage your solar equipment catalog, stock levels, and warehouse locations</p>
+        </div>
+
+        <div id="product-stock-summary" class="product-stock-summary-grid"></div>
+
+        <div class="table-controls">
+          <div class="search-filter-group">
+            <div class="search-input-wrapper">
+              <i data-lucide="search" class="search-icon" style="width:16px;height:16px;"></i>
+              <input type="text" id="product-search" class="input-control search-input" placeholder="Search by ID, name or rack location...">
+            </div>
+            <select id="product-category-filter" class="select-filter">
+              <option value="">All Categories</option>
+            </select>
+          </div>
+          <div class="action-buttons">
+            <button class="btn-primary" id="add-product-btn">
+              <i data-lucide="plus" style="width:16px;height:16px;"></i> Add Product
+            </button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table" id="products-table">
+            <thead>
+              <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Brand</th>
+                <th>Qty In Stock</th>
+                <th>Min Level</th>
+                <th>Rack Location</th>
+                <th>Supplier</th>
+                <th style="text-align:center;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="products-table-body"></tbody>
+          </table>
+          <div class="pagination" id="products-pagination">
+            <div>Showing <span id="prod-page-start">0</span>-<span id="prod-page-end">0</span> of <span id="prod-total-count">0</span> products</div>
+            <div class="page-btn-group">
+              <button class="page-btn" id="prod-prev-page" disabled>Previous</button>
+              <button class="page-btn" id="prod-next-page" disabled>Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== TRANSACTIONS ===== -->
+      <div id="transactions-view" class="view-section">
+        <div class="page-title-block">
+          <h2>Stock Operations & Ledger</h2>
+          <p>Record stock inflows and outflows with complete audit trail</p>
+        </div>
+
+        <div class="table-controls">
+          <div class="search-filter-group">
+            <div class="search-input-wrapper">
+              <i data-lucide="search" class="search-icon" style="width:16px;height:16px;"></i>
+              <input type="text" id="tx-search" class="input-control search-input" placeholder="Search by product, entity or ID...">
+            </div>
+            <select id="tx-type-filter" class="select-filter" style="min-width:120px;">
+              <option value="">All Types</option>
+              <option value="IN">Stock In</option>
+              <option value="OUT">Stock Out</option>
+            </select>
+          </div>
+          <div class="action-buttons">
+            <button class="btn-secondary" id="stock-in-btn" style="border-color:rgba(34,197,94,0.3);color:var(--accent-green);">
+              <i data-lucide="arrow-down-left" style="width:16px;height:16px;"></i> Stock In
+            </button>
+            <button class="btn-secondary" id="stock-out-btn" style="border-color:rgba(239,68,68,0.3);color:var(--alert-red);">
+              <i data-lucide="arrow-up-right" style="width:16px;height:16px;"></i> Stock Out
+            </button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table" id="transactions-table">
+            <thead>
+              <tr>
+                <th>Transaction ID</th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Customer/Site</th>
+                <th>Employee/Supplier</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+            <tbody id="transactions-table-body"></tbody>
+          </table>
+          <div class="pagination" id="tx-pagination">
+            <div>Showing <span id="tx-page-start">0</span>-<span id="tx-page-end">0</span> of <span id="tx-total-count">0</span> transactions</div>
+            <div class="page-btn-group">
+              <button class="page-btn" id="tx-prev-page" disabled>Previous</button>
+              <button class="page-btn" id="tx-next-page" disabled>Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== REPORTS ===== -->
+      <div id="reports-view" class="view-section">
+        <div class="page-title-block">
+          <h2>Reports & Exports</h2>
+          <p>Generate detailed reports and manage email notifications</p>
+        </div>
+
+        <div class="reports-layout">
+          <div class="report-export-card">
+            <div>
+              <h3><i data-lucide="download" style="width:20px;height:20px;color:var(--solar-yellow);"></i> Export Stock Reports</h3>
+              <p style="color:var(--text-secondary);font-size:0.88rem;margin-bottom:1.5rem;line-height:1.5;">
+                Download structured transaction reports and inventory summaries for your management meetings.
+              </p>
+              <div class="form-group">
+                <label style="font-size:0.78rem;color:var(--text-muted);font-weight:500;display:block;margin-bottom:0.4rem;">Report Period</label>
+                <select id="report-range" class="select-filter" style="width:100%;">
+                  <option value="daily">Daily Report (Today)</option>
+                  <option value="weekly">Weekly Report (Last 7 days)</option>
+                  <option value="monthly">Monthly Report (Last 30 days)</option>
+                </select>
+              </div>
+            </div>
+            <div class="action-buttons" style="margin-top:1.25rem;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+              <button id="export-pdf-btn" class="btn-secondary" style="justify-content:center;">
+                <i data-lucide="file-text" style="color:var(--alert-red);"></i> Export PDF
+              </button>
+              <button id="export-xlsx-btn" class="btn-secondary" style="justify-content:center;">
+                <i data-lucide="file-spreadsheet" style="color:var(--accent-green);"></i> Export Excel
+              </button>
+            </div>
+          </div>
+
+          <div class="whatsapp-card">
+            <div>
+              <h3><i data-lucide="mail" style="width:20px;height:20px;color:#0EA5E9;"></i> Email Report</h3>
+              <p style="color:var(--text-secondary);font-size:0.88rem;margin-bottom:1.25rem;line-height:1.5;">
+                A background process sends a summary report automatically. Trigger a test email below.
+              </p>
+              <div id="email-status-indicator" style="background:rgba(255,255,255,0.02);border:1px solid var(--border-color);padding:1rem;border-radius:10px;font-size:0.82rem;line-height:1.6;">
+                <div><b>Recipient:</b> <span id="email-stat-recipient">Configuring...</span></div>
+                <div><b>SMTP Server:</b> <span id="email-stat-server">Configuring...</span></div>
+                <div style="margin-top:8px;"><b>Schedule:</b> Daily <b>6:00 PM</b> &bull; Weekly Mon <b>6:00 PM</b></div>
+              </div>
+            </div>
+            <div style="display:flex;gap:0.75rem;margin-top:1.25rem;flex-wrap:wrap;">
+              <button id="trigger-email-test" class="btn-primary" style="background:linear-gradient(135deg,#0EA5E9,#0284C7);color:white;">
+                <i data-lucide="send" style="width:16px;height:16px;"></i> Send Test (Daily)
+              </button>
+              <button id="trigger-email-test-weekly" class="btn-primary" style="background:linear-gradient(135deg,#8B5CF6,#7C3AED);color:white;">
+                <i data-lucide="calendar" style="width:16px;height:16px;"></i> Send Test (Weekly)
+              </button>
+            </div>
+          </div>
+
+          <div class="whatsapp-card">
+            <div>
+              <h3><i data-lucide="message-square" style="width:20px;height:20px;"></i> Meta WhatsApp Notification</h3>
+              <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:1.5rem;line-height:1.4;">
+                A background process sends a summary report daily at <b>6:00 PM</b> automatically. Use this command card to check integrations or trigger a test transmission immediately.
+              </p>
+              <div id="whatsapp-status-indicator" style="background:rgba(255,255,255,0.03);border:1px solid var(--border-color);padding:1rem;border-radius:8px;font-size:0.85rem;line-height:1.5;">
+                <div><b>Configured Recipient:</b> <span id="wa-stat-recipient">Configuring...</span></div>
+                <div><b>API Status ID:</b> <span id="wa-stat-phoneid">Configuring...</span></div>
+              </div>
+            </div>
+            <button id="trigger-wa-test" class="btn-primary" style="background:linear-gradient(90deg,#25D366 0%,#128C7E 100%);color:white;margin-top:1.5rem;">
+              <i data-lucide="send" style="width:16px;height:16px;margin-right:0.25rem;vertical-align:middle;"></i> Send Test Report Now
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CONTACTS ===== -->
+      <div id="contacts-view" class="view-section">
+        <div class="page-title-block">
+          <h2>Contacts Management</h2>
+          <p>Manage your suppliers and customer project sites</p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.5rem;">
+          <div class="panel">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+              <h3><i data-lucide="truck" style="width:18px;height:18px;color:var(--electric-blue);vertical-align:middle;"></i> Suppliers</h3>
+              <button class="btn-primary" id="btn-add-supplier" style="padding:0.5rem 1rem;font-size:0.8rem;"><i data-lucide="plus" style="width:14px;height:14px;"></i> Add</button>
+            </div>
+            <div class="table-responsive" style="box-shadow:none;border:none;background:transparent;">
+              <table class="data-table" id="suppliers-table">
+                <thead><tr><th>Name</th><th>Contact</th><th>Phone</th><th>Actions</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="panel">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+              <h3><i data-lucide="building-2" style="width:18px;height:18px;color:var(--solar-yellow);vertical-align:middle;"></i> Customers / Sites</h3>
+              <button class="btn-primary" id="btn-add-customer" style="padding:0.5rem 1rem;font-size:0.8rem;"><i data-lucide="plus" style="width:14px;height:14px;"></i> Add</button>
+            </div>
+            <div class="table-responsive" style="box-shadow:none;border:none;background:transparent;">
+              <table class="data-table" id="customers-table">
+                <thead><tr><th>Name</th><th>Contact</th><th>Phone</th><th>Actions</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SETTINGS ===== -->
+      <div id="settings-view" class="view-section">
+        <div class="page-title-block">
+          <h2>Settings</h2>
+          <p>Admin configuration, credential management, and API integrations</p>
+        </div>
+
+        <div style="max-width:720px;">
+          <div class="settings-section-card">
+            <h3><i data-lucide="mail" style="width:18px;height:18px;color:#0EA5E9;vertical-align:middle;"></i> Email Report Configuration</h3>
+            <form id="settings-email-form">
+              <div class="form-group">
+                <label for="set-email-smtp">SMTP Server</label>
+                <input type="text" id="set-email-smtp" class="input-control" placeholder="e.g. smtp.gmail.com" value="smtp.gmail.com" required>
+              </div>
+              <div class="form-group">
+                <label for="set-email-port">SMTP Port</label>
+                <input type="number" id="set-email-port" class="input-control" placeholder="587" value="587" required>
+              </div>
+              <div class="form-group">
+                <label for="set-email-sender">Sender Email</label>
+                <input type="email" id="set-email-sender" class="input-control" placeholder="your-email@gmail.com" required>
+              </div>
+              <div class="form-group">
+                <label for="set-email-password">App Password</label>
+                <input type="password" id="set-email-password" class="input-control" placeholder="Gmail App Password (16 chars)" required>
+              </div>
+              <div class="form-group">
+                <label for="set-email-recipient">Recipient Email</label>
+                <input type="email" id="set-email-recipient" class="input-control" placeholder="recipient@example.com" required>
+              </div>
+              <button type="submit" class="btn-primary" style="width:auto;padding:0.7rem 2rem;">Save Configuration</button>
+            </form>
+          </div>
+
+          <div class="settings-section-card">
+            <h3><i data-lucide="message-circle" style="width:18px;height:18px;color:#25D366;vertical-align:middle;"></i> WhatsApp Configuration</h3>
+            <form id="settings-wa-form">
+              <div class="form-group">
+                <label for="set-wa-recipient">Predefined WhatsApp Recipient Number (with country code, no +)</label>
+                <input type="text" id="set-wa-recipient" class="input-control" placeholder="e.g. 919876543210" required>
+              </div>
+              <div class="form-group">
+                <label for="set-wa-phone-id">Meta Phone Number ID</label>
+                <input type="text" id="set-wa-phone-id" class="input-control" placeholder="Enter Meta Phone Number ID" required>
+              </div>
+              <div class="form-group">
+                <label for="set-wa-token">Permanent System User Access Token</label>
+                <textarea id="set-wa-token" class="input-control" style="min-height:100px;font-family:monospace;" placeholder="Paste your Meta System User token" required></textarea>
+              </div>
+              <button type="submit" class="btn-primary" style="width:auto;padding:0.75rem 2rem;">Save WhatsApp Configuration</button>
+            </form>
+          </div>
+
+          <div class="settings-section-card">
+            <h3><i data-lucide="zap" style="width:18px;height:18px;color:var(--solar-yellow);vertical-align:middle;"></i> Energy Forecast Settings</h3>
+            <form id="settings-energy-form">
+              <div class="form-group">
+                <p style="margin:0;font-size:0.78rem;color:var(--text-muted);">Temperature is pulled automatically from live weather data.</p>
+                <span style="font-size:0.74rem;color:var(--text-muted);">Solar panel efficiency drops ~0.4% per °C above 25°C</span>
+              </div>
+              <div class="form-group">
+                <label for="set-energy-sun">Peak Sun Hours (PSH)</label>
+                <input type="number" id="set-energy-sun" class="input-control" min="1" max="14" step="0.5" placeholder="e.g. 5" required>
+                <span style="font-size:0.74rem;color:var(--text-muted);">Average peak sunlight hours per day at your location</span>
+              </div>
+              <button type="submit" class="btn-primary" style="width:auto;padding:0.75rem 2rem;">Save Energy Settings</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</section>
+
+<!-- ========== MODALS ========== -->
+
+<!-- Product Modal -->
+<div class="modal-overlay" id="product-modal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 id="product-modal-title">Add Product</h3>
+      <button class="close-modal"><i data-lucide="x" style="width:20px;height:20px;"></i></button>
+    </div>
+    <form id="product-form">
+      <input type="hidden" id="prod-mode" value="ADD">
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="prod-id">Product ID</label>
+          <input type="text" id="prod-id" class="input-control" placeholder="e.g. P006" required>
+        </div>
+        <div class="form-group">
+          <label for="prod-name">Product Name</label>
+          <input type="text" id="prod-name" class="input-control" placeholder="e.g. Mono Solar Panel 450W" required>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+          <div class="form-group">
+            <label for="prod-category">Category</label>
+            <input type="text" id="prod-category" class="input-control" list="prod-category-list" placeholder="e.g. Solar Panels" required>
+            <datalist id="prod-category-list"></datalist>
+          </div>
+          <div class="form-group">
+            <label for="prod-brand">Brand</label>
+            <input type="text" id="prod-brand" class="input-control" placeholder="e.g. Trina Solar" required>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+          <div class="form-group">
+            <label for="prod-unit">Unit</label>
+            <input type="text" id="prod-unit" class="input-control" placeholder="e.g. Pcs, Roll" required>
+          </div>
+          <div class="form-group">
+            <label for="prod-min">Minimum Stock Level</label>
+            <input type="number" id="prod-min" class="input-control" min="0" placeholder="e.g. 10" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="prod-model">Model / Capacity</label>
+          <input type="text" id="prod-model" class="input-control" placeholder="e.g. 550W, 10KW">
+        </div>
+        <div class="form-group" id="prod-qty-group">
+          <label for="prod-qty">Initial Quantity</label>
+          <input type="number" id="prod-qty" class="input-control" min="0" placeholder="e.g. 50">
+        </div>
+        <div class="form-group">
+          <label for="prod-supplier">Supplier</label>
+          <select id="prod-supplier" class="input-control">
+            <option value="">Select Supplier (Optional)...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="prod-location">Rack Location</label>
+          <input type="text" id="prod-location" class="input-control" placeholder="e.g. Rack A-3 (Optional)">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary close-modal">Cancel</button>
+        <button type="submit" class="btn-primary" style="width:auto;">Save Product</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Stock In Modal -->
+<div class="modal-overlay" id="stock-in-modal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3><i data-lucide="arrow-down-left" style="width:18px;height:18px;color:var(--accent-green);vertical-align:middle;"></i> Stock In</h3>
+      <button class="close-modal"><i data-lucide="x" style="width:20px;height:20px;"></i></button>
+    </div>
+    <form id="stock-in-form">
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="in-product">Select Product</label>
+          <select id="in-product" class="input-control" required></select>
+        </div>
+        <div class="form-group">
+          <label for="in-qty">Quantity</label>
+          <input type="number" id="in-qty" class="input-control" min="1" placeholder="Enter quantity" required>
+        </div>
+        <div class="form-group">
+          <label for="in-supplier">Supplier (Optional)</label>
+          <select id="in-supplier" class="input-control">
+            <option value="">Select Supplier...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="in-date">Transaction Date</label>
+          <input type="date" id="in-date" class="input-control" required>
+        </div>
+        <div class="form-group">
+          <label for="in-remarks">Remarks (Optional)</label>
+          <input type="text" id="in-remarks" class="input-control" placeholder="e.g. Restock shipment">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary close-modal">Cancel</button>
+        <button type="submit" class="btn-primary" style="width:auto;background:linear-gradient(135deg,var(--accent-green),#16a34a);color:white;">Record Stock In</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Stock Out Modal -->
+<div class="modal-overlay" id="stock-out-modal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3><i data-lucide="arrow-up-right" style="width:18px;height:18px;color:var(--alert-red);vertical-align:middle;"></i> Stock Out</h3>
+      <button class="close-modal"><i data-lucide="x" style="width:20px;height:20px;"></i></button>
+    </div>
+    <form id="stock-out-form">
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="out-product">Select Product</label>
+          <select id="out-product" class="input-control" required></select>
+        </div>
+        <div class="form-group">
+          <label for="out-qty">Quantity</label>
+          <input type="number" id="out-qty" class="input-control" min="1" placeholder="Enter quantity" required>
+          <span style="font-size:0.75rem;color:var(--text-muted);margin-top:0.25rem;display:block;" id="out-available-hint"></span>
+        </div>
+        <div class="form-group">
+          <label for="out-customer">Customer / Project Site</label>
+          <select id="out-customer" class="input-control">
+            <option value="">Select Customer/Site...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="out-employee">Employee Name</label>
+          <input type="text" id="out-employee" class="input-control" placeholder="Enter employee name">
+        </div>
+        <div class="form-group">
+          <label for="out-date">Transaction Date</label>
+          <input type="date" id="out-date" class="input-control" required>
+        </div>
+        <div class="form-group">
+          <label for="out-remarks">Remarks (Optional)</label>
+          <input type="text" id="out-remarks" class="input-control" placeholder="e.g. Installation block D">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary close-modal">Cancel</button>
+        <button type="submit" class="btn-primary" style="width:auto;background:linear-gradient(135deg,var(--alert-red),#dc2626);color:white;">Record Stock Out</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Contact Modal -->
+<div class="modal-overlay" id="contact-modal">
+  <div class="modal-card" style="max-width:500px;">
+    <div class="modal-header">
+      <h3 id="contact-modal-title">Add Contact</h3>
+      <button class="close-modal"><i data-lucide="x" style="width:20px;height:20px;"></i></button>
+    </div>
+    <form id="contact-form">
+      <input type="hidden" id="contact-id">
+      <input type="hidden" id="contact-type">
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="contact-name">Company / Individual Name</label>
+          <input type="text" id="contact-name" class="input-control" required>
+        </div>
+        <div class="form-group">
+          <label for="contact-person">Contact Person (Optional)</label>
+          <input type="text" id="contact-person" class="input-control">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+          <div class="form-group">
+            <label for="contact-phone">Phone (Optional)</label>
+            <input type="text" id="contact-phone" class="input-control">
+          </div>
+          <div class="form-group">
+            <label for="contact-email">Email (Optional)</label>
+            <input type="email" id="contact-email" class="input-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="contact-address">Address (Optional)</label>
+          <input type="text" id="contact-address" class="input-control">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary close-modal">Cancel</button>
+        <button type="submit" class="btn-primary" style="width:auto;">Save Contact</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div id="toast-container"></div>
+
+<script src="/js/app.js?v=2"></script>
+<script>
+function togglePassword() {
+  const pw = document.getElementById('password');
+  const icon = pw.nextElementSibling.querySelector('i');
+  if (pw.type === 'password') {
+    pw.type = 'text';
+    icon.setAttribute('data-lucide', 'eye-off');
+  } else {
+    pw.type = 'password';
+    icon.setAttribute('data-lucide', 'eye');
+  }
+  lucide.createIcons();
+}
+</script>
+</body>
+</html>

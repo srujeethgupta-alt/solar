@@ -1,0 +1,367 @@
+{
+  "products": [
+    {
+      "id": "P001",
+      "name": "Mono Solar Panel 400W",
+      "category": "Solar Panels",
+      "brand": "SunPower",
+      "unit": "Pcs",
+      "quantity": 79,
+      "minimum_stock": 20,
+      "supplier": "Solar Components Inc",
+      "rack_location": "Rack A-1"
+    },
+    {
+      "id": "P002",
+      "name": "Hybrid Inverter 10kW",
+      "category": "Inverters",
+      "brand": "Growatt",
+      "unit": "Pcs",
+      "quantity": 10,
+      "minimum_stock": 5,
+      "supplier": "PowerTech Solutions",
+      "rack_location": "Rack B-3"
+    },
+    {
+      "id": "P003",
+      "name": "DC Solar Cable 6mm2 (100m)",
+      "category": "Cables",
+      "brand": "Kabel",
+      "unit": "Roll",
+      "quantity": 4,
+      "minimum_stock": 10,
+      "supplier": "Solar Cables Co",
+      "rack_location": "Rack C-2"
+    },
+    {
+      "id": "P004",
+      "name": "LiFePO4 Solar Battery 48V 100Ah",
+      "category": "Batteries",
+      "brand": "BYD",
+      "unit": "Pcs",
+      "quantity": 3,
+      "minimum_stock": 5,
+      "supplier": "BatteryWorld",
+      "rack_location": "Rack D-1"
+    },
+    {
+      "id": "P006",
+      "name": "Bifacial Solar Panel 450W",
+      "category": "Solar Panels",
+      "brand": "scQW",
+      "unit": "pcs",
+      "quantity": 30,
+      "minimum_stock": 100,
+      "supplier": "",
+      "rack_location": "",
+      "model_capacity": "10kw",
+      "image_path": ""
+    }
+  ],
+  "transactions": [
+    {
+      "id": "T001",
+      "type": "IN",
+      "product_id": "P001",
+      "product_name": "Mono Solar Panel 400W",
+      "quantity": 85,
+      "entity": "Solar Components Inc",
+      "date": "2026-06-29",
+      "remarks": "Initial stock setup",
+      "timestamp": "2026-06-29T08:00:00.000Z"
+    },
+    {
+      "id": "T002",
+      "type": "IN",
+      "product_id": "P002",
+      "product_name": "Hybrid Inverter 10kW",
+      "quantity": 12,
+      "entity": "PowerTech Solutions",
+      "date": "2026-06-29",
+      "remarks": "Initial stock setup",
+      "timestamp": "2026-06-29T08:05:00.000Z"
+    },
+    {
+      "id": "T003",
+      "type": "IN",
+      "product_id": "P003",
+      "product_name": "DC Solar Cable 6mm2 (100m)",
+      "quantity": 6,
+      "entity": "Solar Cables Co",
+      "date": "2026-06-29",
+      "remarks": "Initial stock setup",
+      "timestamp": "2026-06-29T08:10:00.000Z"
+    },
+    {
+      "id": "T004",
+      "type": "OUT",
+      "product_id": "P003",
+      "product_name": "DC Solar Cable 6mm2 (100m)",
+      "quantity": 2,
+      "entity": "Apex Green Project Site",
+      "date": "2026-06-29",
+      "remarks": "Project installation",
+      "timestamp": "2026-06-29T08:30:00.000Z"
+    },
+    {
+      "id": "T005",
+      "type": "OUT",
+      "product_id": "P006",
+      "product_name": "Bifacial Solar Panel 450W",
+      "quantity": 10,
+      "entity": "Vignan Solar Site",
+      "date": "2026-06-29",
+      "remarks": "Project phase 1",
+      "timestamp": "2026-06-29T03:48:19.382614Z"
+    },
+    {
+      "id": "T006",
+      "type": "IN",
+      "product_id": "P006",
+      "product_name": "Bifacial Solar Panel 450W",
+      "quantity": 25,
+      "entity": "Longi Logistics",
+      "date": "2026-06-29",
+      "remarks": "Weekly supply restock",
+      "timestamp": "2026-06-29T03:48:19.395876Z"
+    },
+    {
+      "id": "T007",
+      "type": "OUT",
+      "product_id": "P006",
+      "product_name": "Bifacial Solar Panel 450W",
+      "quantity": 10,
+      "entity": "Vignan Solar Site",
+      "date": "2026-06-29",
+      "remarks": "Project phase 1",
+      "timestamp": "2026-06-29T03:48:46.089012Z"
+    },
+    {
+      "id": "T008",
+      "type": "IN",
+      "product_id": "P006",
+      "product_name": "Bifacial Solar Panel 450W",
+      "quantity": 25,
+      "entity": "Longi Logistics",
+      "date": "2026-06-29",
+      "remarks": "Weekly supply restock",
+      "timestamp": "2026-06-29T03:48:46.101007Z"
+    },
+    {
+      "id": "T009",
+      "type": "OUT",
+      "product_id": "P006",
+      "product_name": "Bifacial Solar Panel 450W",
+      "quantity": 10,
+      "entity": "Vignan Solar Site",
+      "date": "2026-06-29",
+      "remarks": "Project phase 1",
+      "timestamp": "2026-06-29T03:50:39.215448Z"
+    },
+    {
+      "id": "T010",
+      "type": "IN",
+      "product_id": "P006",
+      "product_name": "Bifacial Solar Panel 450W",
+      "quantity": 25,
+      "entity": "Longi Logistics",
+      "date": "2026-06-29",
+      "remarks": "Weekly supply restock",
+      "timestamp": "2026-06-29T03:50:39.228856Z"
+    },
+    {
+      "id": "T011",
+      "type": "OUT",
+      "product_id": "P006",
+      "product_name": "Bifacial Solar Panel 450W",
+      "quantity": 10,
+      "entity": "",
+      "date": "2026-06-29",
+      "remarks": "Project phase 1",
+      "timestamp": "2026-06-29T04:09:35.866695Z"
+    },
+    {
+      "id": "T012",
+      "type": "IN",
+      "product_id": "P006",
+      "product_name": "Bifacial Solar Panel 450W",
+      "quantity": 25,
+      "entity": "Longi Logistics",
+      "date": "2026-06-29",
+      "remarks": "Weekly supply restock",
+      "timestamp": "2026-06-29T04:09:35.881988Z"
+    },
+    {
+      "id": "T013",
+      "type": "OUT",
+      "product_id": "P001",
+      "product_name": "Mono Solar Panel 400W",
+      "quantity": 5,
+      "entity": "",
+      "date": "2026-06-29",
+      "remarks": "",
+      "timestamp": "2026-06-29T04:11:03.659815Z"
+    },
+    {
+      "id": "T014",
+      "type": "OUT",
+      "product_id": "P006",
+      "product_name": "Bifacial Solar Panel 450W",
+      "quantity": 10,
+      "entity": "",
+      "date": "2026-06-29",
+      "remarks": "Project phase 1",
+      "timestamp": "2026-06-29T04:23:02.223659Z"
+    },
+    {
+      "id": "T015",
+      "type": "IN",
+      "product_id": "P006",
+      "product_name": "Bifacial Solar Panel 450W",
+      "quantity": 25,
+      "entity": "Longi Logistics",
+      "date": "2026-06-29",
+      "remarks": "Weekly supply restock",
+      "timestamp": "2026-06-29T04:23:02.236275Z"
+    },
+    {
+      "id": "T016",
+      "type": "OUT",
+      "product_id": "P006",
+      "product_name": "Bifacial Solar Panel 450W",
+      "quantity": 10,
+      "entity": "",
+      "date": "2026-06-29",
+      "remarks": "Project phase 1",
+      "timestamp": "2026-06-29T04:28:22.603840Z"
+    },
+    {
+      "id": "T017",
+      "type": "IN",
+      "product_id": "P006",
+      "product_name": "Bifacial Solar Panel 450W",
+      "quantity": 25,
+      "entity": "Longi Logistics",
+      "date": "2026-06-29",
+      "remarks": "Weekly supply restock",
+      "timestamp": "2026-06-29T04:28:22.616614Z"
+    },
+    {
+      "id": "T018",
+      "type": "OUT",
+      "product_id": "P006",
+      "product_name": "Bifacial Solar Panel 450W",
+      "quantity": 10,
+      "entity": "",
+      "employee": "John Doe",
+      "date": "2026-06-29",
+      "remarks": "Project phase 1",
+      "timestamp": "2026-06-29T05:23:52.951225Z"
+    },
+    {
+      "id": "T019",
+      "type": "IN",
+      "product_id": "P006",
+      "product_name": "Bifacial Solar Panel 450W",
+      "quantity": 25,
+      "entity": "Longi Logistics",
+      "date": "2026-06-29",
+      "remarks": "Weekly supply restock",
+      "timestamp": "2026-06-29T05:23:52.960700Z"
+    },
+    {
+      "id": "T020",
+      "type": "OUT",
+      "product_id": "P001",
+      "product_name": "Mono Solar Panel 400W",
+      "quantity": 1,
+      "entity": "",
+      "employee": "",
+      "date": "2026-06-29",
+      "remarks": "",
+      "timestamp": "2026-06-29T10:05:59.765046Z"
+    },
+    {
+      "id": "T021",
+      "type": "IN",
+      "product_id": "P001",
+      "product_name": "Mono Solar Panel 400W",
+      "quantity": 2,
+      "entity": "",
+      "date": "2026-06-30",
+      "remarks": "",
+      "timestamp": "2026-06-30T03:22:57.250719Z"
+    },
+    {
+      "id": "T022",
+      "type": "OUT",
+      "product_id": "P002",
+      "product_name": "Hybrid Inverter 10kW",
+      "quantity": 2,
+      "entity": "",
+      "employee": "ravi",
+      "date": "2026-06-30",
+      "remarks": "",
+      "timestamp": "2026-06-30T03:23:13.649797Z"
+    },
+    {
+      "id": "T023",
+      "type": "OUT",
+      "product_id": "P001",
+      "product_name": "Mono Solar Panel 400W",
+      "quantity": 1,
+      "entity": "Test Customer",
+      "employee": "Test Employee",
+      "date": "2026-07-01",
+      "remarks": "Audit test",
+      "timestamp": "2026-07-01T05:53:27.232015Z"
+    },
+    {
+      "id": "T024",
+      "type": "OUT",
+      "product_id": "P001",
+      "product_name": "Mono Solar Panel 400W",
+      "quantity": 1,
+      "entity": "",
+      "employee": "",
+      "date": "2026-07-01",
+      "remarks": "Final test",
+      "timestamp": "2026-07-01T06:01:07.969350Z"
+    }
+  ],
+  "config": {
+    "admin_username": "admin",
+    "admin_password_hash": "263522355e906dd90a9ea89ef90257e30170cf1ee3756b29aa07b6abeb368508",
+    "admin_salt": "solarsalt123",
+    "email_smtp_server": "smtp.test.com",
+    "email_smtp_port": 587,
+    "email_sender": "",
+    "email_password": "zpos laye rekm pvun",
+    "email_recipient": "",
+    "whatsapp_recipient": "",
+    "whatsapp_phone_number_id": "",
+    "whatsapp_token": "",
+    "energy_temp_celsius": 25.0,
+    "energy_peak_sun_hours": 5.0
+  },
+  "suppliers": [
+    {
+      "id": "S001",
+      "name": "Global Solar Dist",
+      "contact_person": "Alice",
+      "phone": "555-0192",
+      "email": "alice@globalsolar.com",
+      "address": "123 Solar Way"
+    }
+  ],
+  "customers": [
+    {
+      "id": "C001",
+      "name": "Eco Build Corp",
+      "contact_person": "Bob",
+      "phone": "555-9988",
+      "email": "bob@ecobuild.com",
+      "address": "456 Green Blvd"
+    }
+  ]
+}
